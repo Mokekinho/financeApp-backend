@@ -12,11 +12,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 class WebSecurityConfig {
 
-    @Bean
+    //@Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
 
         http.
@@ -40,12 +40,12 @@ class WebSecurityConfig {
 
     }
 
-    @Bean
+    //@Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder() // para codificar a senha
     }
 
-    @Bean
+    //@Bean
     fun userDetailsService(): UserDetailsService {
         val encoder = BCryptPasswordEncoder()
         val user = User.builder()
@@ -56,6 +56,4 @@ class WebSecurityConfig {
 
         return InMemoryUserDetailsManager(user)
     }
-
-
 }
