@@ -1,6 +1,9 @@
 package com.mokekinho.financeapp.controllers
 
 import com.mokekinho.financeapp.dto.UserDto
+import com.mokekinho.financeapp.dto.LoginRequest
+import com.mokekinho.financeapp.dto.LoginResponse
+import com.mokekinho.financeapp.services.FinanceService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -10,35 +13,22 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/auth")
-class AuthController {
+class AuthController(
+    private val financeService: FinanceService
+) {
 
-    private val users = listOf<UserDto>(
-        UserDto(
-            name = "user1",
-            password = "1234"
-        ),
-        UserDto(
-            name = "user2",
-            password = "1234"
-        ),
-        UserDto(
-            name = "user3",
-            password = "1234"
-        ),
-        UserDto(
-            name = "user4",
-            password = "1234"
-        ),
-    )
+    @GetMapping
+    fun getLoginInfo(): String{
 
+        return "Login"
+    }
 
     @PostMapping
     fun logIn(
-        @RequestBody user: UserDto
-    ){
-
-
-
+        @RequestBody loginRequest: LoginRequest
+    ): LoginResponse {
+        
+       return financeService.login(loginRequest)
 
     }
 }

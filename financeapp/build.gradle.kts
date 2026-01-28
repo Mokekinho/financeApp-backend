@@ -30,9 +30,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
 	//security
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
-	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+	
+
+	val jjwtVersion = "0.13.0"
+
+	//implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
 }
 
 kotlin {
