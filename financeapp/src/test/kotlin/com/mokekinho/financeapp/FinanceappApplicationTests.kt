@@ -1,0 +1,13 @@
+package com.mokekinho.financeapp
+
+import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
+
+@SpringBootTest
+class FinanceappApplicationTests {
+
+	@Test
+	fun contextLoads() {
+	}
+
+}
