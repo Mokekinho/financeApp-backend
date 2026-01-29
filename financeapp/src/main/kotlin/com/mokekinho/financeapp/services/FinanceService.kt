@@ -28,5 +28,12 @@ class FinanceService(
         )
     }
 
+    fun logout(
+        authHeader: String
+    ){
+        val token = authHeader.removePrefix("Bearer ")
+        fakeTokenService.invalidate(token)
+    }
+
 
 }
