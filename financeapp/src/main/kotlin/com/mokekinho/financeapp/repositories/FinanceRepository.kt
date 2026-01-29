@@ -3,8 +3,6 @@ package com.mokekinho.financeapp.repositories
 import org.springframework.stereotype.Repository
 import com.mokekinho.financeapp.entities.User
 
-
-
 @Repository
 class FinanceRepository(
 ){

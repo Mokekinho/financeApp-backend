@@ -8,7 +8,7 @@ interface PasswordEncoder{
 }
 
 @Component
-class FakePassWordEconder : PasswordEncoder
+class FakePassWordEncoder : PasswordEncoder
 {
     override fun encode(raw: String): String{
         return "ENC($raw)" //simulando uma codificação

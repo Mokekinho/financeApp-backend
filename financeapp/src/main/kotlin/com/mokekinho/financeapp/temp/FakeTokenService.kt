@@ -5,11 +5,21 @@ import org.springframework.stereotype.Component
 
 interface TokenService{
     fun generateToken(user: User): String
+    fun isValid(token: String): Boolean
 }
 
 @Component
 class FakeTokenService: TokenService{
+    private val validTokens = mutableSetOf<String>()
+
     override fun generateToken(user: User): String{
-        return "TOKEN_${user.id}_${System.currentTimeMillis()}"
+        val token = "TOKEN_${user.id}_${System.currentTimeMillis()}"
+
+        validTokens.add(token)
+        return token
+    }
+
+    override fun isValid(token: String): Boolean {
+        return validTokens.contains(token)
     }
 }
