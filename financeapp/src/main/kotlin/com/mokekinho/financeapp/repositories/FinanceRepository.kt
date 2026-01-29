@@ -1,5 +1,6 @@
 package com.mokekinho.financeapp.repositories
 
+import com.mokekinho.financeapp.entities.Role
 import org.springframework.stereotype.Repository
 import com.mokekinho.financeapp.entities.User
 
@@ -16,7 +17,8 @@ class FinanceRepository(
         User(
             id = 2,
             name = "user2",
-            password = "ENC(1234)"
+            password = "ENC(1234)",
+            role = Role.ADMIN
         ),
         User(
             id = 3,
