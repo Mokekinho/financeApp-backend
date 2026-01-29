@@ -40,6 +40,17 @@ class FakeAuthFilter : OncePerRequestFilter() {
             return
         }
 
-        filterChain.doFilter(request, response) // se o token for valido ele segue o fluxo
+        val user = tokenService.getUser(token) // vou descobrir o usuario pra passar pra requisição
+
+        if (user != null){
+            FakeSecurityContext.setUser(user) // agora o user esta no contexto e a aplicação toda pode utilizá-lo.
+        }
+
+        try {
+            filterChain.doFilter(request, response)
+        } finally {
+            FakeSecurityContext.clear() // evita vazamento entre requests
+        }
+
     }
 }
