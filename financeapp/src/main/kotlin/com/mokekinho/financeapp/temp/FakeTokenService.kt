@@ -10,16 +10,40 @@ interface TokenService{
 
 @Component
 class FakeTokenService: TokenService{
-    private val validTokens = mutableSetOf<String>()
+    private val validTokens = mutableMapOf<String, TokenInfo>()
+    private val EXPIRATION_TIME = 1000 * 60 * 5 // 5 minutos
 
     override fun generateToken(user: User): String{
+
+
         val token = "TOKEN_${user.id}_${System.currentTimeMillis()}"
 
-        validTokens.add(token)
+        val tokenInfo = TokenInfo(
+            token = token,
+            user = user,
+            expiresAt = System.currentTimeMillis() + EXPIRATION_TIME
+        )
+
+        validTokens[token] = tokenInfo
         return token
     }
 
     override fun isValid(token: String): Boolean {
-        return validTokens.contains(token)
+        val info = validTokens[token] ?: return false
+        return info.expiresAt > System.currentTimeMillis()
+
+    }
+
+    fun getUser(token: String): User? {
+        return validTokens[token]?.user
+    }
+    fun invalidate(token: String) {
+        validTokens.remove(token)
     }
 }
+
+data class TokenInfo(
+    val token: String,
+    val user: User,
+    val expiresAt: Long
+)
