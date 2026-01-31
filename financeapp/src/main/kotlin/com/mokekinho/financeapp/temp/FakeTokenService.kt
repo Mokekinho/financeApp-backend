@@ -2,7 +2,7 @@ package com.mokekinho.financeapp.temp
 
 import com.mokekinho.financeapp.entities.User
 import org.springframework.stereotype.Component
-
+/**
 interface TokenService{
     fun generateToken(user: User): String
     fun isValid(token: String): Boolean
@@ -47,3 +47,4 @@ data class TokenInfo(
     val user: User,
     val expiresAt: Long
 )
+**/

@@ -1,17 +1,28 @@
 package com.mokekinho.financeapp.configuration
 
+import com.mokekinho.financeapp.filter.JwtAuthFilter
+import com.mokekinho.financeapp.services.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(
+    private val jwtAuthFilter: JwtAuthFilter,
+    private val userService: UserService
+) {
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain{
@@ -25,9 +36,14 @@ class SecurityConfig {
                 it.anyRequest().authenticated() // as outras requizições precisa de autenticação
 
             }
+            .sessionManagement {
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }
+            .authenticationProvider(authenticationProvider())
             // Essa opção de form não me é muito util
             //.formLogin { //tem como criar uma tela personalizada, mais pra frente ver como funciona }
             .csrf { it.disable() } // to desabilitando pq sim,
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java) // o Spring security tem um fila de filtros, eu to falando que quero colocar o meu filtro na frente do filtro De UsernamePasswordAuthenticationFilter
 
             return http.build()
     }
@@ -38,8 +54,20 @@ class SecurityConfig {
     }
 
     @Bean
-    fun userDetail() : UserDetailsService{
+    fun authenticationProvider(): AuthenticationProvider{
 
+        val provider = DaoAuthenticationProvider(userService)
+
+        provider.setPasswordEncoder(passwordEncoder())
+
+        return provider
+
+    }
+
+    @Bean
+    @Throws(Exception::class)
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager{
+        return config.authenticationManager
     }
 
 }

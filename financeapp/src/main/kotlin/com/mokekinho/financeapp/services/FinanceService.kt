@@ -11,35 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class FinanceService(
     private val financeRepository: FinanceRepository,
-    private val fakeTokenService: FakeTokenService,
     private val passwordEncoder: PasswordEncoder // o jeito certo é injetar a interface
 ){
-
-    fun login(
-        loginRequest: LoginRequest
-    ): LoginResponse{
-
-        val user = financeRepository.findUserByName(loginRequest.name) ?: throw RuntimeException("Invalid credentials")
-
-        if(
-            passwordEncoder.matches(
-                loginRequest.password,user.password
-                )
-            ){
-            throw RuntimeException("Invalid credentials")
-        }
-
-        return LoginResponse(
-            token = fakeTokenService.generateToken(user)
-        )
-    }
-
-    fun logout(
-        authHeader: String
-    ){
-        val token = authHeader.removePrefix("Bearer ")
-        fakeTokenService.invalidate(token)
-    }
-
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
 @Component
 class FakeAuthFilter : OncePerRequestFilter() {
 
@@ -54,3 +55,4 @@ class FakeAuthFilter : OncePerRequestFilter() {
 
     }
 }
+        **/

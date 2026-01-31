@@ -1,7 +1,7 @@
 package com.mokekinho.financeapp.temp
 
 import com.mokekinho.financeapp.entities.User
-
+/**
 object FakeSecurityContext {
     private val currentUser = ThreadLocal<User?>() // vou salver o usuário numa trhead local
 
@@ -17,3 +17,4 @@ object FakeSecurityContext {
         currentUser.remove()
     }
 }
+        **/

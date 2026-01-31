@@ -35,9 +35,9 @@ dependencies {
 	val jjwtVersion = "0.13.0"
 
 	implementation("org.springframework.boot:spring-boot-starter-security") //por padrão ele ja vai bloquear todas as telas e redirecionar pra tela de login
-	//implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
-	//runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
-	//runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
+	implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
 }
 
 kotlin {
