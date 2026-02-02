@@ -32,7 +32,5 @@ class JwtService {
             .build() // aqui eu vou criar o parser configurado, entao acima disso vai ser como eu vou verificar o token
             .parseSignedClaims(token) // aqui eu to verificando o token com as configurações la de cima
             .payload.subject // esse payload é o que a gente construiu la em cima, ele vai ter subject, o expiration, o issueat // aqui eu to pegando o username
-
-
     }
 }

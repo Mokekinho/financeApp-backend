@@ -1,5 +1,7 @@
 package com.mokekinho.financeapp.entities
 
+
+//@Entity//Todo criar um banco de dados pra guardar isso
 data class User(
     val id: Long,
     val name: String,

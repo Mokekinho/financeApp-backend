@@ -37,12 +37,13 @@ class SecurityConfig(
 
             }
             .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // com Staless o servidor nao guarda informações do usario, tudo que ele precisa saber vai vir do token.
+
             }
-            .authenticationProvider(authenticationProvider())
+            .authenticationProvider(authenticationProvider()) // isso é pra ele pegar as informações do jeito que eu configurei em UserDetails, istoé, vindo do repositorio
             // Essa opção de form não me é muito util
             //.formLogin { //tem como criar uma tela personalizada, mais pra frente ver como funciona }
-            .csrf { it.disable() } // to desabilitando pq sim,
+            .csrf { it.disable() } // to desabilitando por que não é util TODO estudar oq isso faz com mais carinho
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java) // o Spring security tem um fila de filtros, eu to falando que quero colocar o meu filtro na frente do filtro De UsernamePasswordAuthenticationFilter
 
             return http.build()
@@ -56,9 +57,9 @@ class SecurityConfig(
     @Bean
     fun authenticationProvider(): AuthenticationProvider{
 
-        val provider = DaoAuthenticationProvider(userService)
+        val provider = DaoAuthenticationProvider(userService)// vai pegar o nome do UserService
 
-        provider.setPasswordEncoder(passwordEncoder())
+        provider.setPasswordEncoder(passwordEncoder()) //vai codificar com password encoder que eu defini ali em cima
 
         return provider
 
@@ -68,8 +69,7 @@ class SecurityConfig(
     @Throws(Exception::class)
     fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager{
         return config.authenticationManager
-    }
-
+    } // isso aqui é pra eu conseguir expor o authetication maneger via injeção de dependencia, no meu caso to usando no AuthService
 }
 
 /*

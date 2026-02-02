@@ -2,6 +2,7 @@ package com.mokekinho.financeapp.services
 
 import com.mokekinho.financeapp.dto.LoginRequest
 import com.mokekinho.financeapp.dto.LoginResponse
+import com.mokekinho.financeapp.entities.User
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Service
 @Service
 class AuthService(
     private val authenticationManager: AuthenticationManager,
-    private val jwtService: JwtService
+    private val jwtService: JwtService,
+
 ) {
 
     fun login(
@@ -40,5 +42,11 @@ class AuthService(
         return LoginResponse(
             token // estou retornando o token
         )
+    }
+
+    fun addNewUser(
+        user: User
+    ){
+        //TODO implementar a adiçã de usuário
     }
 }
