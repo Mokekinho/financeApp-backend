@@ -33,7 +33,15 @@ class UserEntity(
     @Enumerated(EnumType.STRING)
     @Column(
         nullable = false
-    ) val role: Role = Role.USER
+    ) val role: Role = Role.USER,
+
+    // User information
+
+    @Column(
+        nullable = false,
+        unique = true
+    ) val email: String = "",
+
 )
 
 enum class Role(){
