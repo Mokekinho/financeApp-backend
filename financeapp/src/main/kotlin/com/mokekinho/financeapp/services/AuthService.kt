@@ -2,17 +2,23 @@ package com.mokekinho.financeapp.services
 
 import com.mokekinho.financeapp.dto.LoginRequest
 import com.mokekinho.financeapp.dto.LoginResponse
-import com.mokekinho.financeapp.entities.User
+import com.mokekinho.financeapp.dto.UserDto
+import com.mokekinho.financeapp.entities.UserEntity
+import com.mokekinho.financeapp.mappers.toEntity
+import com.mokekinho.financeapp.repositories.FinanceRepository
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
     private val authenticationManager: AuthenticationManager,
     private val jwtService: JwtService,
+    private val financeRepository: FinanceRepository,
+    private val passwordEncoder: PasswordEncoder
 
 ) {
 
@@ -45,8 +51,14 @@ class AuthService(
     }
 
     fun addNewUser(
-        user: User
+        userDto: UserDto
     ){
-        //TODO implementar a adiçã de usuário
+        val passwordHash = passwordEncoder.encode(userDto.password) ?:
+            error("Falha crítica ao gerar hash da senha")
+
+        val userEntity = userDto.toEntity().apply {
+            this.password = passwordHash
+        }
+        financeRepository.save(userEntity)
     }
 }

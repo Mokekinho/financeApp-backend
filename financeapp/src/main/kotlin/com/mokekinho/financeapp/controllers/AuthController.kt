@@ -3,7 +3,6 @@ package com.mokekinho.financeapp.controllers
 import com.mokekinho.financeapp.dto.UserDto
 import com.mokekinho.financeapp.dto.LoginRequest
 import com.mokekinho.financeapp.dto.LoginResponse
-import com.mokekinho.financeapp.entities.User
 import com.mokekinho.financeapp.services.AuthService
 import com.mokekinho.financeapp.services.FinanceService
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,7 +27,7 @@ class AuthController(
 
     @PostMapping("/add")
     fun addNewUser(
-        @RequestBody user: User // criar dto para isso
+        @RequestBody user: UserDto // criar dto para isso
     ){
         authService.addNewUser(user)
     }
