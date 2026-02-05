@@ -14,7 +14,7 @@ class UserService(
 
     override fun loadUserByUsername(username: String): UserDetails {
 
-        val user = financeRepository.findUserByName(username) // aqui eu to dizendo como o Spring vai construir meu usuario
+        val user = financeRepository.findByName(username) // aqui eu to dizendo como o Spring vai construir meu usuario
             ?: throw UsernameNotFoundException("User Not Found")
 
         return User.builder()

@@ -2,7 +2,7 @@ package com.mokekinho.financeapp.services
 
 import com.mokekinho.financeapp.dto.LoginRequest
 import com.mokekinho.financeapp.dto.LoginResponse
-import com.mokekinho.financeapp.entities.User
+import com.mokekinho.financeapp.entities.UserEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -45,7 +45,7 @@ class AuthService(
     }
 
     fun addNewUser(
-        user: User
+        user: UserEntity
     ){
         //TODO implementar a adiçã de usuário
     }
