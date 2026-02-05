@@ -2,5 +2,20 @@ spring:
   application:
     name: financeapp
 
+    datasource:
+      username: "moises"
+      password: ${POSTGRES_PASSWORD}
+      url: "jdbc:postgresql://localhost:5432/financedb"
+      driver: org.postgresql.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
 server:
   port: 3333
