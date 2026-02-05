@@ -19,28 +19,28 @@ class UserEntity(
     @GeneratedValue(
         strategy = GenerationType.IDENTITY
     )
-    val id: Long = 0 ,
+    var id: Long = 0 ,
 
     @Column(
         nullable = false,
         unique = true
-    ) val name: String = "",
+    ) var name: String = "",
 
     @Column(
         nullable = false
-    ) val password: String = "",
+    ) var password: String = "",
 
     @Enumerated(EnumType.STRING)
     @Column(
         nullable = false
-    ) val role: Role = Role.USER,
+    ) var role: Role = Role.USER,
 
     // User information
 
     @Column(
         nullable = false,
         unique = true
-    ) val email: String = "",
+    ) var email: String = "",
 
 )
 
